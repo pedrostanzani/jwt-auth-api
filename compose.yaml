@@ -1,0 +1,40 @@
+services:
+  db:
+    container_name: database
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  api:
+    container_name: app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
+      JWT_SECRET: b3cb26d8dedc9f4cd31bd6ae1c5ce8847e6a9f0a231227f7c3b8055b78954680
+    ports:
+      - "3000:3000"
+    # command: ["bun", "run", "src/index.ts"]
+    volumes:
+      - ./app:/app
+      - app_node-modules:/app/node_modules
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+  app_node-modules:
+
+networks:
+  backend:
