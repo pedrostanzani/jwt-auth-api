@@ -1,5 +1,7 @@
 import { Elysia, t } from "elysia";
 import { swagger, ElysiaSwaggerConfig } from "@elysiajs/swagger";
+import { staticPlugin } from "@elysiajs/static";
+
 import { routes } from "@/routes";
 
 const swaggerOptions: ElysiaSwaggerConfig<string> | undefined = {
@@ -23,7 +25,15 @@ const swaggerOptions: ElysiaSwaggerConfig<string> | undefined = {
   },
 };
 
-const app = new Elysia().use(swagger(swaggerOptions)).use(routes).listen(3000);
+const app = new Elysia()
+  .use(swagger(swaggerOptions))
+  .use(routes)
+  .use(
+    staticPlugin({
+      prefix: "/",
+    })
+  )
+  .listen(3000);
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
