@@ -4,7 +4,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
-    "build:docs": "rm -rf static && cd ../docs && npm run build && cp -r out ../app/public",
+    "build:docs": "rm -rf public && cd ../docs && npm run build && cp -r out ../app/public",
     "start:migrate:prod": "bunx prisma migrate deploy && bun src/index.ts"
   },
   "dependencies": {
