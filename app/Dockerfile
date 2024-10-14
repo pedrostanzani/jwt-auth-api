@@ -2,19 +2,23 @@ FROM oven/bun
 
 WORKDIR /app
 
-COPY package.json .
-COPY bun.lockb .
-
+# Install dependencies first to cache the layer
+COPY package.json bun.lockb ./
 RUN bun install --production
 
+# Copy the rest of the app files
 COPY prisma prisma
+COPY public public
 COPY src src
 COPY tsconfig.json .
-COPY public public
 
+# Run Prisma schema generation
 RUN bunx prisma generate
 
 ENV NODE_ENV production
-CMD ["bun", "src/index.ts"]
 
+# Expose the application port
 EXPOSE 3000
+
+# Start the application
+CMD ["bun", "run", "start:migrate:prod"]

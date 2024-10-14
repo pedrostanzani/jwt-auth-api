@@ -27,7 +27,6 @@ services:
       - "3000:3000"
     # command: ["bun", "run", "src/index.ts"]
     volumes:
-      - ./app:/app
       - app_node-modules:/app/node_modules
     networks:
       - backend
