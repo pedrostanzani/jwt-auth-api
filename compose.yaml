@@ -3,43 +3,27 @@ services:
     container_name: database
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    # ports:
+      # - "5432:5432"
     networks:
       - backend
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 1s
-      timeout: 1s
-      retries: 5
 
   api:
     container_name: app
     build:
       context: ./app
       dockerfile: Dockerfile
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
-      JWT_SECRET: b3cb26d8dedc9f4cd31bd6ae1c5ce8847e6a9f0a231227f7c3b8055b78954680
+      DATABASE_URL: ${DATABASE_URL:-postgres://postgres:postgres@db:5432/postgres}
+      JWT_SECRET: ${JWT_SECRET:-fbb15a424da0317fada92aca9512af0520f4f556cc0a96e12a9711324f45f350}
     ports:
       - "3000:3000"
-    # command: ["bun", "run", "src/index.ts"]
-    volumes:
-      - app_node-modules:/app/node_modules
+    restart: always
     networks:
       - backend
-
-volumes:
-  postgres_data:
-  app_node-modules:
 
 networks:
   backend:
