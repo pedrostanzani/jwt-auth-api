@@ -1,0 +1,58 @@
+import { Callout, Cards } from 'nextra/components'
+import { Box } from 'lucide-react';
+
+# Endpoints da API
+
+A API oferece endpoints de autenticação e de consulta de dados.
+
+## Swagger
+
+A documentação dos endpoints da API foi desenvolvida com Swagger e Scalar e pode ser acessada [nesse link](/swagger).
+ 
+## Lista de endpoints
+
+### Registrar usuário
+
+- Endpoint: `POST /registrar`
+- Descrição: endpoint de criação de novos usuários.
+
+<div className='mt-6'>
+  <Cards.Card
+    icon={<Box />}
+    title="Ver no Swagger"
+    href="/swagger#tag/default/POST/registrar"
+    arrow
+  />
+</div>
+
+### Fazer login
+
+- Endpoint: `POST /login`
+- Descrição: endpoint de autenticação para usuários existentes.
+
+A autenticação é realizada com email e senha. Esse endpoint retorna um token JWT que deve ser usado nas requisições ao endpoint de consulta de dados.
+
+<div className='mt-6'>
+  <Cards.Card
+    icon={<Box />}
+    title="Ver no Swagger"
+    href="/swagger#tag/default/POST/login"
+    arrow
+  />
+</div>
+
+### Consultar dados
+
+- Endpoint: `GET /consulta`
+- Descrição: endpoint de consulta de manchetes.
+
+Esse endpoint retorna uma lista de manchetes da BBC. Essas manchetes são armazenadas em cache (memória) e atualizam de hora em hora.
+
+<div className='mt-6'>
+  <Cards.Card
+    icon={<Box />}
+    title="Ver no Swagger"
+    href="/swagger#tag/default/GET/consulta"
+    arrow
+  />
+</div>

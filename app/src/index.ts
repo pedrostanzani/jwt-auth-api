@@ -33,6 +33,8 @@ const app = new Elysia()
       prefix: "/",
     })
   )
+  .get('/endpoints', (c) => Bun.file('public/endpoints.html'))
+  .get('/getting-started', (c) => Bun.file('public/getting-started.html'))
   .listen(3000);
 
 console.log(
