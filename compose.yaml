@@ -13,9 +13,10 @@ services:
 
   api:
     container_name: app
-    build:
-      context: ./app
-      dockerfile: Dockerfile
+    image: pedrostanzani/jwt-auth-api:latest
+    # build:
+    #   context: ./app
+    #   dockerfile: Dockerfile
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgres://postgres:postgres@db:5432/postgres}
       JWT_SECRET: ${JWT_SECRET:-fbb15a424da0317fada92aca9512af0520f4f556cc0a96e12a9711324f45f350}
