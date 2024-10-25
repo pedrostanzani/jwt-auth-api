@@ -4,6 +4,8 @@ Aluno: Pedro Henrique Stanzani de Freitas
 
 Arquivo `compose.yaml`: [link](https://raw.githubusercontent.com/pedrostanzani/jwt-auth-api/refs/heads/main/compose.yaml)
 
+Vídeo de demonstração: [https://youtu.be/_45PC0K1840](https://youtu.be/_45PC0K1840)
+
 Esse projeto foi desenvolvido para a disciplina de Computação em Nuvem e demonstra uma API de autenticação com JWTs (JSON Web Tokens) que foi desenvolvida com ElysiaJS, Bun e TypeScript.
 
 ## Estrutura
