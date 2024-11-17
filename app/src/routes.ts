@@ -211,9 +211,6 @@ export const routes = new Elysia()
     },
     {
       type: "application/json",
-      headers: t.Object({
-        authorization: t.String(),
-      }),
       response: {
         200: t.Object(
           {
