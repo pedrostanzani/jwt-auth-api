@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as cheerio from 'cheerio';
 
 interface CacheEntry {
@@ -19,7 +18,7 @@ export class Scraper {
 
     const scrapedAt = new Date().toISOString();
 
-    const response = await axios.get('https://www.bbc.com/', {
+    const response = await fetch('https://www.bbc.com/', {
       headers: {
         'User-Agent':
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
@@ -31,10 +30,9 @@ export class Scraper {
         Referer: 'https://www.google.com/',
         'Cache-Control': 'no-cache',
       },
-      responseType: 'text',
     });
 
-    const $ = cheerio.load(response.data);
+    const $ = cheerio.load(await response.text());
     const headlines: string[] = [];
     $("h2[data-testid='card-headline']").each((_, element) => {
       const headline = $(element).text().trim();
