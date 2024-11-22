@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jwt-api
+  namespace: jwt-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jwt-api
+  template:
+    metadata:
+      labels:
+        app: jwt-api
+    spec:
+      containers:
+      - name: jwt-api
+        image: pedrostanzani/jwt-auth-api:latest
+        env:
+        - name: DATABASE_URL
+          value: "postgres://postgres:postgres@postgres.jwt-app.svc.cluster.local:5432/postgres"
+        - name: JWT_SECRET
+          value: "fbb15a424da0317fada92aca9512af0520f4f556cc0a96e12a9711324f45f350"
+        ports:
+        - containerPort: 3000
