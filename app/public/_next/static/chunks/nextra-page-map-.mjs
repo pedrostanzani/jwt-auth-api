@@ -2,6 +2,12 @@ import meta from "../../../pages/_meta.js";
 export const pageMap = [{
   data: meta
 }, {
+  name: "deploy",
+  route: "/deploy",
+  frontMatter: {
+    "sidebarTitle": "Deploy"
+  }
+}, {
   name: "endpoints",
   route: "/endpoints",
   frontMatter: {
