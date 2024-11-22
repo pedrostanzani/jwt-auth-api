@@ -1,0 +1,76 @@
+import { Callout, Cards } from 'nextra/components'
+import { Box } from 'lucide-react';
+import { Steps } from 'nextra/components'
+
+# Deploy na AWS
+
+A segunda etapa do projeto consiste em realizar o deploy da API desenvolvida na AWS 
+(Amazon Web Services).
+
+O deploy foi realizado utilizando Amazon Elastic Kubernetes Service (EKS), `eksctl` e `kubectl`, 
+além da criação de distribuição com Amazon CloudFront.
+
+## Deploy da aplicação EKS
+
+O Amazon Elastic Kubernetes Service (EKS) é um serviço gerenciado da Amazon Web Services (AWS) que facilita a execução de clusters Kubernetes na nuvem.
+
+Foram criados cinco arquivos YAML para a criação dos deployments e services da aplicação. São eles:
+- namespace.yaml 
+- jwt-api-deployment.yaml 
+- jwt-api-service.yaml 
+- postgres-deployment.yaml 
+- postgres-service.yaml
+
+Esses arquivos foram disponibilizados [no GitHub](https://github.com/pedrostanzani/jwt-auth-api/tree/main/deployment).
+
+<Steps>
+### Crie o cluster com `eksctl`
+ 
+```bash
+eksctl create cluster 
+  --name jwt-app-cluster 
+  --region us-east-1 
+  --nodegroup-name standard-workers 
+  --node-type t3.medium 
+  --nodes 2 
+  --nodes-min 1 
+  --nodes-max 3 
+  --managed
+```
+ 
+
+### Crie o namespace Kubernetes
+ 
+```bash
+kubectl apply -f namespace.yaml
+```
+ 
+### Faça o deploy do serviço PostgreSQL
+ 
+```bash
+kubectl apply -f postgres-deployment.yaml
+kubectl apply -f postgres-service.yaml
+```
+
+### Faça o deploy do servidor da API
+ 
+```bash
+kubectl apply -f jwt-api-deployment.yaml
+kubectl apply -f jwt-api-service.yaml
+```
+
+### All set!
+ 
+Confira se os pods estão rodando corretamente:
+
+```bash
+kubectl get pods -n jwt-app
+```
+
+</Steps>
+ 
+## Configuração do CDN com Amazon CloudFront
+
+Como forma de disponibilizar a API com acesso HTTPs sem a necessidade de um certificado 
+SSL, foi criada uma distribuição usando a Amazon CloudFront — um serviço de Content 
+Delivery Network (CDN) da AWS.
