@@ -244,4 +244,11 @@ export const routes = new Elysia()
         security: [{ "Bearer Token": [] }],
       },
     }
-  );
+  )
+  .get("/consultar", ({ redirect }) => {
+    return redirect("/consulta");
+  }, {
+    detail: {
+      hide: true,
+    },
+  });
