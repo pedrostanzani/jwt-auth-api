@@ -43,6 +43,11 @@ const app = new Elysia()
       hide: true,
     },
   })
+  .get("/deploy", (c) => Bun.file("public/deploy.html"), {
+    detail: {
+      hide: true,
+    },
+  })
   .listen(3000);
 
 console.log(
