@@ -5,12 +5,12 @@ import { staticPlugin } from "@elysiajs/static";
 import { routes } from "@/routes";
 
 const swaggerOptions: ElysiaSwaggerConfig<string> | undefined = {
-  // path: "/docs",
+  path: "/swagger",
   documentation: {
     info: {
       title: "JWT Authentication API",
       description:
-        "Documentação da API de autenticação com JWT desenvolvida para o projeto da disciplina de Computação em Nuvem.",
+        "JWT Authentication API documentation developed for the \"Cloud Computing\" class project. For more detailed documentation (including details about deploying to AWS), visit <a href='/docs' target='_blank'>/docs</a>.",
       version: "1.0.0",
     },
     components: {
@@ -33,17 +33,27 @@ const app = new Elysia()
       prefix: "/",
     })
   )
-  .get("/endpoints", (c) => Bun.file("public/endpoints.html"), {
+  .get("/", ({ redirect }) => redirect("/swagger"), {
     detail: {
       hide: true,
     },
   })
-  .get("/getting-started", (c) => Bun.file("public/getting-started.html"), {
+  .get("/docs", (c) => Bun.file("public/index.html"), {
     detail: {
       hide: true,
     },
   })
-  .get("/deploy", (c) => Bun.file("public/deploy.html"), {
+  .get("/docs/endpoints", (c) => Bun.file("public/endpoints.html"), {
+    detail: {
+      hide: true,
+    },
+  })
+  .get("/docs/getting-started", (c) => Bun.file("public/getting-started.html"), {
+    detail: {
+      hide: true,
+    },
+  })
+  .get("/docs/deploy", (c) => Bun.file("public/deploy.html"), {
     detail: {
       hide: true,
     },

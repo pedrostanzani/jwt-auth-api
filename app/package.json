@@ -4,6 +4,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
+    "dev:db": "docker run --name postgres-dev -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:16-alpine",
     "build:docs": "rm -rf public && cd ../docs && npm run build && cp -r out ../app/public",
     "start:migrate:prod": "bunx prisma migrate deploy && bun src/index.ts"
   },

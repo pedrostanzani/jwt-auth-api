@@ -33,7 +33,7 @@ export const routes = new Elysia()
     }
   })
   .post(
-    "/registrar",
+    "/register",
     async ({ jwt, body, error }) => {
       const user = await prisma.user.findUnique({
         where: {
@@ -47,10 +47,10 @@ export const routes = new Elysia()
         });
       }
 
-      const hash = await Bun.password.hash(body.senha);
+      const hash = await Bun.password.hash(body.password);
       const newUser = await prisma.user.create({
         data: {
-          name: body.nome,
+          name: body.name,
           email: body.email,
           password: hash,
         },
@@ -70,11 +70,11 @@ export const routes = new Elysia()
     },
     {
       body: t.Object({
-        nome: t.String(),
+        name: t.String(),
         email: t.String({
           format: "email",
         }),
-        senha: t.String({
+        password: t.String({
           minLength: 8,
         }),
       }),
@@ -114,7 +114,7 @@ export const routes = new Elysia()
         ),
       },
       detail: {
-        summary: "Registrar usuário",
+        summary: "Register user",
       },
     }
   )
@@ -133,7 +133,7 @@ export const routes = new Elysia()
         });
       }
 
-      const isMatch = await Bun.password.verify(body.senha, user.password);
+      const isMatch = await Bun.password.verify(body.password, user.password);
       if (!isMatch) {
         return error(401, {
           error: "Unauthorized",
@@ -150,7 +150,7 @@ export const routes = new Elysia()
     {
       body: t.Object({
         email: t.String({ format: "email" }),
-        senha: t.String(),
+        password: t.String(),
       }),
       type: "application/json",
       response: {
@@ -188,12 +188,12 @@ export const routes = new Elysia()
         ),
       },
       detail: {
-        summary: "Fazer login",
+        summary: "Login",
       },
     }
   )
   .get(
-    "/consulta",
+    "/query",
     async ({ bearer, jwt, error }) => {
       const payload = await jwt.verify(bearer);
       if (!payload) {
@@ -238,15 +238,15 @@ export const routes = new Elysia()
         ),
       },
       detail: {
-        summary: "Consultar dados",
+        summary: "Query data",
         description:
-          "Esse endpoint retorna uma lista de manchetes da BBC. Essas manchetes são armazenadas em cache e atualizam de hora em hora.",
+          "This endpoint returns a list of BBC headlines. These headlines are cached and update every hour.",
         security: [{ "Bearer Token": [] }],
       },
     }
   )
   .get("/consultar", ({ redirect }) => {
-    return redirect("/consulta");
+    return redirect("/query");
   }, {
     detail: {
       hide: true,
