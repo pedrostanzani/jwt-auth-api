@@ -1,0 +1,12 @@
+# GitHub Linguist configuration
+# Ignore generated HTML documentation files
+app/public/*.html linguist-generated=true
+docs/out/**/* linguist-generated=true
+
+# Mark specific directories as documentation
+docs/ linguist-documentation
+app/public/ linguist-documentation
+
+# Mark generated files
+**/*.lockb linguist-vendored=true
+node_modules/ linguist-vendored=true
