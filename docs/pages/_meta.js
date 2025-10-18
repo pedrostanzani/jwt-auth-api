@@ -1,8 +1,8 @@
 const meta = {
-  index: "Introdução",
-  "getting-started": "Instalação",
-  endpoints: "Endpoints da API",
-  deploy: "Deploy na AWS",
+  index: "Introduction",
+  "getting-started": "Installation",
+  endpoints: "API Endpoints",
+  deploy: "AWS Deployment",
 };
 
 export default meta;

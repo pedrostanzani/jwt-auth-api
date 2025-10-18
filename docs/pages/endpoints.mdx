@@ -1,58 +1,58 @@
 import { Callout, Cards } from 'nextra/components'
 import { Box } from 'lucide-react';
 
-# Endpoints da API
+# API Endpoints
 
-A API oferece endpoints de autenticação e de consulta de dados.
+The API offers authentication and data query endpoints.
 
 ## Swagger
 
-A documentação dos endpoints da API foi desenvolvida com Swagger e Scalar e pode ser acessada [nesse link](/swagger).
+The API endpoint documentation was developed with Swagger and Scalar and can be accessed [at this link](/swagger).
  
-## Lista de endpoints
+## List of endpoints
 
-### Registrar usuário
+### Register user
 
-- Endpoint: `POST /registrar`
-- Descrição: endpoint de criação de novos usuários.
+- Endpoint: `POST /register`
+- Description: endpoint for creating new users.
 
 <div className='mt-6'>
   <Cards.Card
     icon={<Box />}
-    title="Ver no Swagger"
-    href="/swagger#tag/default/POST/registrar"
+    title="View in Swagger"
+    href="/swagger#tag/default/POST/register"
     arrow
   />
 </div>
 
-### Fazer login
+### Login
 
 - Endpoint: `POST /login`
-- Descrição: endpoint de autenticação para usuários existentes.
+- Description: authentication endpoint for existing users.
 
-A autenticação é realizada com email e senha. Esse endpoint retorna um token JWT que deve ser usado nas requisições ao endpoint de consulta de dados.
+Authentication is performed with email and password. This endpoint returns a JWT token that should be used in requests to the data query endpoint.
 
 <div className='mt-6'>
   <Cards.Card
     icon={<Box />}
-    title="Ver no Swagger"
-    href="/swagger#tag/default/POST/registrar"
+    title="View in Swagger"
+    href="/swagger#tag/default/POST/login"
     arrow
   />
 </div>
 
-### Consultar dados
+### Query data
 
-- Endpoint: `GET /consulta`
-- Descrição: endpoint de consulta de manchetes.
+- Endpoint: `GET /query`
+- Description: headlines query endpoint.
 
-Esse endpoint retorna uma lista de manchetes da BBC. Essas manchetes são armazenadas em cache (memória) e atualizam de hora em hora.
+This endpoint returns a list of BBC headlines. These headlines are cached (in memory) and update every hour.
 
 <div className='mt-6'>
   <Cards.Card
     icon={<Box />}
-    title="Ver no Swagger"
-    href="/swagger#tag/default/POST/registrar"
+    title="View in Swagger"
+    href="/swagger#tag/default/GET/query"
     arrow
   />
 </div>

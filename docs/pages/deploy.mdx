@@ -2,29 +2,33 @@ import { Callout, Cards } from 'nextra/components'
 import { Box } from 'lucide-react';
 import { Steps } from 'nextra/components'
 
-# Deploy na AWS
+# AWS Deployment
 
-A segunda etapa do projeto consiste em realizar o deploy da API desenvolvida na AWS 
+<Callout type="warning">
+**Note:** The deployment described in this guide is no longer active. AWS credits provided for the "Cloud Computing" class have expired after the course ended, so the infrastructure is no longer running.
+</Callout>
+
+The second stage of the project consists of deploying the developed API to AWS 
 (Amazon Web Services).
 
-O deploy foi realizado utilizando Amazon Elastic Kubernetes Service (EKS), `eksctl` e `kubectl`, 
-além da criação de distribuição com Amazon CloudFront.
+The deployment was performed using Amazon Elastic Kubernetes Service (EKS), `eksctl` and `kubectl`, 
+in addition to creating a distribution with Amazon CloudFront.
 
-## Deploy da aplicação EKS
+## EKS Application Deployment
 
-O Amazon Elastic Kubernetes Service (EKS) é um serviço gerenciado da Amazon Web Services (AWS) que facilita a execução de clusters Kubernetes na nuvem.
+Amazon Elastic Kubernetes Service (EKS) is a managed service from Amazon Web Services (AWS) that makes it easy to run Kubernetes clusters in the cloud.
 
-Foram criados cinco arquivos YAML para a criação dos deployments e services da aplicação. São eles:
+Five YAML files were created for the application's deployments and services. They are:
 - namespace.yaml 
 - jwt-api-deployment.yaml 
 - jwt-api-service.yaml 
 - postgres-deployment.yaml 
 - postgres-service.yaml
 
-Esses arquivos foram disponibilizados [no GitHub](https://github.com/pedrostanzani/jwt-auth-api/tree/main/deployment).
+These files are available [on GitHub](https://github.com/pedrostanzani/jwt-auth-api/tree/main/deployment).
 
 <Steps>
-### Crie o cluster com `eksctl`
+### Create the cluster with `eksctl`
  
 ```bash
 eksctl create cluster 
@@ -39,20 +43,20 @@ eksctl create cluster
 ```
  
 
-### Crie o namespace Kubernetes
+### Create the Kubernetes namespace
  
 ```bash
 kubectl apply -f namespace.yaml
 ```
  
-### Faça o deploy do serviço PostgreSQL
+### Deploy the PostgreSQL service
  
 ```bash
 kubectl apply -f postgres-deployment.yaml
 kubectl apply -f postgres-service.yaml
 ```
 
-### Faça o deploy do servidor da API
+### Deploy the API server
  
 ```bash
 kubectl apply -f jwt-api-deployment.yaml
@@ -61,7 +65,7 @@ kubectl apply -f jwt-api-service.yaml
 
 ### All set!
  
-Confira se os pods estão rodando corretamente:
+Check if the pods are running correctly:
 
 ```bash
 kubectl get pods -n jwt-app
@@ -69,8 +73,8 @@ kubectl get pods -n jwt-app
 
 </Steps>
  
-## Configuração do CDN com Amazon CloudFront
+## CDN Configuration with Amazon CloudFront
 
-Como forma de disponibilizar a API com acesso HTTPs sem a necessidade de um certificado 
-SSL, foi criada uma distribuição usando a Amazon CloudFront — um serviço de Content 
-Delivery Network (CDN) da AWS.
+As a way to make the API available with HTTPS access without the need for an SSL 
+certificate, a distribution was created using Amazon CloudFront — an AWS Content 
+Delivery Network (CDN) service.
