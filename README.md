@@ -1,6 +1,6 @@
 # JWT Authentication API
 
-> [!INFO]
+> [!NOTE]
 > This project was developed for the "Cloud Computing" class I took at Insper, in late 2024. Documentation has since been translated from Portuguese to English.
 
 > [!TIP]
